@@ -1,0 +1,28 @@
+package com.sj.redisdemo.config;
+
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * @author shijing
+ * @Date 2023/6/27
+ * @Classname RedisConfig
+ */
+@Configuration
+public class RedissonConfig {
+
+    @Bean("redissonClient")
+    public RedissonClient redissonClient(){
+        // 创建配置 指定redis地址及节点信息
+        Config config = new Config();
+        config.useSingleServer().setAddress("redis://127.0.0.1:6379");
+
+        // 根据config创建出RedissonClient实例
+        RedissonClient redissonClient = Redisson.create(config);
+        return redissonClient;
+    }
+}

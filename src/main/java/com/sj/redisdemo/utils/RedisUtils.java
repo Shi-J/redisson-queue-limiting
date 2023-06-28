@@ -1,4 +1,4 @@
-package com.sj.redisdemo.redis;
+package com.sj.redisdemo.utils;
 
 import lombok.Data;
 import org.redisson.Redisson;

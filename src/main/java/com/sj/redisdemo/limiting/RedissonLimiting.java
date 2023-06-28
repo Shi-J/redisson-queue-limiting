@@ -1,7 +1,6 @@
 package com.sj.redisdemo.limiting;
 
-import com.sj.redisdemo.queue.RedissonDelayQueue;
-import com.sj.redisdemo.redis.RedisUtils;
+import com.sj.redisdemo.utils.RedisUtils;
 import org.redisson.api.RRateLimiter;
 import org.redisson.api.RateIntervalUnit;
 import org.redisson.api.RateType;
@@ -20,10 +19,12 @@ public class RedissonLimiting {
 
     //  获取令牌 true得到,false没得到
     public boolean getToken(){
+        //  创建限流器
         RRateLimiter rateLimiter = redisUtils.getRedissonClient().getRateLimiter("TOKEN");
-        //  一秒内产生一百个
-        rateLimiter.trySetRate(RateType.OVERALL, 100, 1,
+        //  一秒内产生一百个 （令牌）
+        rateLimiter.trySetRate(RateType.OVERALL, 10, 10,
                 RateIntervalUnit.SECONDS);
+        //  获取令牌
        return rateLimiter.tryAcquire(1);
     }
 
